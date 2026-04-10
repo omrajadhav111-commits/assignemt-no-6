@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Engineering and Cost Analysis System</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js for Reports -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fa-solid fa-magnifying-glass-chart"></i> VECAS</h2>
+            <button class="close-btn" id="close-btn"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li class="active" data-target="dashboard"><i class="fa-solid fa-house"></i>  Dashboard</li>
+            <li data-target="product-details"><i class="fa-solid fa-box"></i>  Product Details</li>
+            <li data-target="cost-analysis"><i class="fa-solid fa-file-invoice-dollar"></i>  Cost Analysis</li>
+            <li data-target="suggestions"><i class="fa-solid fa-lightbulb"></i>  Suggestions</li>
+            <li data-target="reports"><i class="fa-solid fa-chart-pie"></i>  Reports</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-btn" id="menu-btn"><i class="fa-solid fa-bars"></i></button>
+                <h1>Value Engineering and Cost Analysis</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Student+Admin&background=1e40af&color=fff" alt="User Avatar" class="avatar">
+                    <span class="user-name">Student Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Views Area -->
+        <div class="content-body">
+            
+            <!-- 1. Dashboard View (Active Default) -->
+            <section id="dashboard" class="view-section active-view">
+                <h2 class="section-title">Dashboard Overview</h2>
+                <div class="cards-grid">
+                    <div class="summary-card">
+                        <div class="card-icon blue"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="card-info">
+                            <p>Total Cost</p>
+                            <h3>$45,230.00</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon grey"><i class="fa-solid fa-cubes"></i></div>
+                        <div class="card-info">
+                            <p>Material Cost</p>
+                            <h3>$18,450.00</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon grey"><i class="fa-solid fa-users-gear"></i></div>
+                        <div class="card-info">
+                            <p>Labor Cost</p>
+                            <h3>$12,600.00</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon green"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                        <div class="card-info">
+                            <p>Estimated Savings</p>
+                            <h3>$8,125.00</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Product Details Form View -->
+            <section id="product-details" class="view-section">
+                <h2 class="section-title">Product Information Setup</h2>
+                <div class="form-container box-shadow">
+                    <form onsubmit="event.preventDefault(); alert('Product Details Saved!');">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="prod-name">Product Name</label>
+                                <input type="text" id="prod-name" placeholder="Enter product name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prod-type">Product Type</label>
+                                <select id="prod-type" required>
+                                    <option value="">Select Category</option>
+                                    <option value="electronics">Electronics / Hardware</option>
+                                    <option value="mechanical">Mechanical Assembly</option>
+                                    <option value="consumer">Consumer Product</option>
+                                    <option value="industrial">Industrial Machinery</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="material-used">Primary Material Used</label>
+                                <input type="text" id="material-used" placeholder="e.g. Aluminum, Polycarbonate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Production Quantity</label>
+                                <input type="number" id="quantity" placeholder="No. of units" min="1" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="cost-unit">Base Cost per Unit ($)</label>
+                                <input type="number" id="cost-unit" placeholder="0.00" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Product Details</button>
+                            <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 3. Cost Analysis Spreadsheet View -->
+            <section id="cost-analysis" class="view-section">
+                <h2 class="section-title">Cost Analysis Breakdown</h2>
+                <div class="table-container box-shadow">
+                    <table class="spreadsheet-table">
+                        <thead>
+                            <tr>
+                                <th>Component Item</th>
+                                <th>Material Cost ($)</th>
+                                <th>Labor Cost ($)</th>
+                                <th>Overhead ($)</th>
+                                <th>Transport ($)</th>
+                                <th>Total Cost ($)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Main Housing Shell</td>
+                                <td>$1,200.00</td>
+                                <td>$850.00</td>
+                                <td>$150.00</td>
+                                <td>$75.00</td>
+                                <td><strong>$2,275.00</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Internal Circuitry</td>
+                                <td>$450.00</td>
+                                <td>$300.00</td>
+                                <td>$80.00</td>
+                                <td>$20.00</td>
+                                <td><strong>$850.00</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Cooling Mechanism</td>
+                                <td>$120.00</td>
+                                <td>$60.00</td>
+                                <td>$30.00</td>
+                                <td>$15.00</td>
+                                <td><strong>$225.00</strong></td>
+                            </tr>
+                            <tr class="table-total">
+                                <td>GRAND TOTAL</td>
+                                <td>$1,770.00</td>
+                                <td>$1,210.00</td>
+                                <td>$260.00</td>
+                                <td>$110.00</td>
+                                <td class="total-highlight">$3,350.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. Suggestions View -->
+            <section id="suggestions" class="view-section">
+                <h2 class="section-title">Value Engineering Suggestions</h2>
+                <div class="suggestions-grid">
+                    <div class="suggestion-card box-shadow">
+                        <div class="sugg-icon text-blue"><i class="fa-solid fa-recycle"></i></div>
+                        <h4>Alternative Materials</h4>
+                        <p>Consider replacing standard Aluminum with a high-strength Polycarbonate blend for the main housing. This reduces weight and trims material costs by 18% without affecting durability.</p>
+                    </div>
+                    <div class="suggestion-card box-shadow">
+                        <div class="sugg-icon text-green"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h4>Logistics Optimization</h4>
+                        <p>Bulk shipping components locally instead of relying on decentralized overseas shipments can save approximately $3,000 per production cycle.</p>
+                    </div>
+                    <div class="suggestion-card box-shadow">
+                        <div class="sugg-icon text-grey"><i class="fa-solid fa-microchip"></i></div>
+                        <h4>Component Consolidation</h4>
+                        <p>Incorporate the separate cooling fan controller directly into the main printed circuit board. This eliminates supplementary wiring and reduces labor assembly time drastically.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Reports View -->
+            <section id="reports" class="view-section">
+                <h2 class="section-title">System Analysis Reports</h2>
+                <div class="charts-grid">
+                    <div class="chart-card box-shadow">
+                        <h3>Overall Cost Distribution</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="costPieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card box-shadow">
+                        <h3>Quarterly Cost Comparison</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="costBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- End of Dynamic Body -->
+
+        <!-- Project Footer -->
+        <footer class="app-footer">
+            <p><strong>Value Engineering and Cost Analysis System</strong> &copy; 2026</p>
+            <p>College Project | Developed by [Your Student Details Here]</p>
+        </footer>
+    </main>
+</div>
+
+<!-- Main Application JS -->
+<script src="app.js"></script>
+</body>
+</html>
